@@ -1,5 +1,5 @@
 const https = require("https")
-const { config } = require("config")
+const { config } = require("./config")
 const express = require("express")
 const app = express()
 
@@ -54,5 +54,6 @@ app.post("/webhook", (req, res) => {
 })
 
 app.listen(config.PORT, () => {
-    console.log(`Example app listening at http://localhost:${port}`)
+    console.log(config)
+    console.log(`Example app listening at http://localhost:${config.PORT}`)
 })
