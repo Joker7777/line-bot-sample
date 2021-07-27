@@ -25,12 +25,12 @@ router.post("/", (req, res) => {
 
             const messages = [
                 {
-                    "type": "text",
-                    "text": "書式が違うよ。次のメッセージを参考にしてね。",
+                    type: "text",
+                    text: "書式が違うよ。次のメッセージを参考にしてね。",
                 },
                 {
-                    "type": "text",
-                    "text": "やりたいこと リマインド時間",
+                    type: "text",
+                    text: "やりたいこと リマインド時間",
                 }
             ];
             // validation error response
@@ -51,7 +51,10 @@ router.post("/", (req, res) => {
         // userファイル書き込み
         fs.writeFileSync(userId + '.txt', JSON.stringify(data))
 
-        const reply = `了解！ ${message[0]} を ${message[1]} にリマインドするね。`
+        const reply = {
+            type: 'text',
+            text: `了解！ ${message[0]} を ${message[1]} にリマインドするね。`
+        };
 
         // reply message
         client.replyMessage(req.body.events[0].replyToken, reply)
