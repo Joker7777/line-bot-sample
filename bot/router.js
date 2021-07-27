@@ -49,11 +49,16 @@ router.post("/", (req, res) => {
         }
 
         // userファイル書き込み
-        fs.writeFileSync(userId + '.txt', JSON.stringify(data))
+        try {
+            fs.writeFileSync(userId + '.txt', JSON.stringify(data));
+        } catch (err) {
+            console.log(`ERROR: Cannot write file: ${userId}.txt`);
+            return
+        }
 
         const reply = {
             type: 'text',
-            text: `了解！ ${message[0]} を ${message[1]} にリマインドするね。`
+            text: `userid: ${userId}, 了解！ ${message[0]} を ${message[1]} にリマインドするね。`
         };
 
         // reply message
