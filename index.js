@@ -1,59 +1,37 @@
-const https = require("https")
-const { config } = require("./config")
-const express = require("express")
-const app = express()
+const express = require('express');
+const app = express();
+const webhookRouter = require('./bot/router');
+const { config } = require('./config');
 
-app.use(express.json())
+app.use(express.json());
 app.use(express.urlencoded({
     extended: true
-}))
+}));
 
 app.get("/", (req, res) => {
     res.sendStatus(200)
 })
 
-app.post("/webhook", (req, res) => {
-    res.send("HTTP POST request sent t the webhook URL!")
-    if (req.body.events[0].type === "message") {
-        const dataString = JSON.stringify({
-            replyToken: req.body.events[0].replyToken,
-            messages: [
-                {
-                    "type": "text",
-                    "text": "Hello, user"                    
-                },
-                {
-                    "type": "text",
-                    "text": "May I help you?"
-                }
-            ]
-        })
-
-        const headers = {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${config.TOKEN}`
-        }
-
-        const webhookOptions = {
-            "hostname": "api.line.me",
-            "path": "/v2/bot/message/reply",
-            "method": "POST",
-            "headers": headers,
-            "body": dataString
-        }
-
-        const request = https.request(webhookOptions, (res) => {
-            res.on("data", (d) => {
-                console.log(d)
-            })
-        })
-
-        request.write(dataString)
-        request.end()
-    }
-})
+app.use('/webhook', webhookRouter)
 
 app.listen(config.PORT, () => {
     console.log(config)
     console.log(`Example app listening at http://localhost:${config.PORT}`)
 })
+
+
+// --------------------
+// const message = {
+//     type: 'text',
+//     text: 'Hello World'
+// };
+
+// // push message
+// // 一度送信してくれたことのある人にしか送れない
+// client.pushMessage('', message)
+//     .then(() => {
+//         console.log('message was sent!');
+//     })
+//     .catch((err) => {
+//         console.log('ERROR: ', err);
+//     })

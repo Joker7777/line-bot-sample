@@ -1,7 +1,8 @@
-PORT = process.env.PORT || 3000
-LINE_ACCESS_TOKEN = process.env.LINE_ACCESS_TOKEN
-
 exports.config = {
-    PORT: PORT,
-    TOKEN: LINE_ACCESS_TOKEN
+    PORT: process.env.PORT || 3000,
+}
+
+exports.lineConf = {
+    LINE_CHANNEL_ACCESS_TOKEN: process.env.LINE_CHANNEL_ACCESS_TOKEN,
+    LINE_CHANNEL_SECRET: process.env.LINE_CHANNEL_SECRET
 }
