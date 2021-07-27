@@ -54,7 +54,7 @@ router.post("/", (req, res) => {
         const reply = `了解！ ${message[0]} を ${message[1]} にリマインドするね。`
 
         // reply message
-        client.replyMessage(req.body.events[0].replyToken, replyMessages)
+        client.replyMessage(req.body.events[0].replyToken, reply)
             .then(() => {
                 console.log('message was sent!')
             })
