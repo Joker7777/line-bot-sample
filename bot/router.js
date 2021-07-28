@@ -30,6 +30,7 @@ router.post("/", (req, res) => {
 
             // validation error response
             lineClient.replyMessage(req.body.events[0].replyToken, messages)
+            return
         }
 
         const data = {
