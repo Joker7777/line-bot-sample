@@ -1,11 +1,6 @@
-const fs = require('fs');
-const express = require('express');
-const router = express.Router();
-const { lineConf } = require('../config')
-const line = require('@line/bot-sdk');
-const client = new line.Client({
-    channelAccessToken: lineConf.LINE_CHANNEL_ACCESS_TOKEN
-});
+// const fs = require('fs');
+const router = require('express').Router();
+const lineClient = new require('../lib/lineClient');
 
 // userのファイルにtodo登録
 router.post("/", (req, res) => {
@@ -22,6 +17,7 @@ router.post("/", (req, res) => {
         const message = req.body.events[0].message.text.split(' ');
         if (message.length !== 2) {
             console.log('WARN: user input was invalid. ', message);
+        }
 
             const messages = [
                 {
@@ -34,14 +30,7 @@ router.post("/", (req, res) => {
                 }
             ];
             // validation error response
-            client.replyMessage(req.body.events[0].replyToken, messages)
-            .then(() => {
-                console.log('message was sent!')
-            })
-            .catch((err) => {
-                console.log(('ERROR: ', err))
-            })
-        }
+            lineClient.replyMessage(req.body.events[0].replyToken, messages)
 
         const data = {
             title: message[0],
@@ -49,27 +38,22 @@ router.post("/", (req, res) => {
         }
 
         // userファイル書き込み
-        try {
-            fs.writeFileSync(userId + '.txt', JSON.stringify(data));
-        } catch (err) {
-            console.log(`ERROR: Cannot write file: ${userId}.txt`);
-            return
-        }
+        // できないのでdbかな。。
+        // try {
+        //     fs.writeFileSync(userId + '.txt', JSON.stringify(data));
+        // } catch (err) {
+        //     console.log(`ERROR: Cannot write file: ${userId}.txt`);
+        //     return
+        // }
 
         const reply = {
             type: 'text',
-            text: `userid: ${userId}, 了解！ ${message[0]} を ${message[1]} にリマインドするね。`
+            text: `了解！ ${message[0]} を ${message[1]} にリマインドするね。`
         };
 
         // reply message
-        client.replyMessage(req.body.events[0].replyToken, reply)
-            .then(() => {
-                console.log('message was sent!')
-            })
-            .catch((err) => {
-                console.log(('ERROR: ', err))
-            })
+        lineClient.replyMessage(req.body.events[0].replyToken, reply)
     }
-})
+});
 
 module.exports = router;

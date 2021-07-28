@@ -18,20 +18,3 @@ app.listen(config.PORT, () => {
     console.log(config)
     console.log(`Example app listening at http://localhost:${config.PORT}`)
 })
-
-
-// --------------------
-// const message = {
-//     type: 'text',
-//     text: 'Hello World'
-// };
-
-// // push message
-// // 一度送信してくれたことのある人にしか送れない
-// client.pushMessage('', message)
-//     .then(() => {
-//         console.log('message was sent!');
-//     })
-//     .catch((err) => {
-//         console.log('ERROR: ', err);
-//     })
