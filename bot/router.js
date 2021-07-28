@@ -17,8 +17,6 @@ router.post("/", (req, res) => {
         const message = req.body.events[0].message.text.split(' ');
         if (message.length !== 2) {
             console.log('WARN: user input was invalid. ', message);
-        }
-
             const messages = [
                 {
                     type: "text",
@@ -29,8 +27,10 @@ router.post("/", (req, res) => {
                     text: "やりたいこと リマインド時間",
                 }
             ];
+
             // validation error response
             lineClient.replyMessage(req.body.events[0].replyToken, messages)
+        }
 
         const data = {
             title: message[0],
