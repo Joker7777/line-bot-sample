@@ -1,6 +1,6 @@
 // const fs = require('fs');
 const router = require('express').Router();
-const lineClient = new require('../lib/lineClient');
+const lineClient = require('../lib/lineClient');
 
 // userのファイルにtodo登録
 router.post("/", (req, res) => {
