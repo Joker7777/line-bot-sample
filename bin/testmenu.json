@@ -1,0 +1,59 @@
+{
+    "size": {
+        "width": 2500,
+        "height": 1600
+    },
+    "selected": false,
+    "name": "nanasai_test",
+    "chatBarText": "操作メニュー",
+    "areas": [
+        {
+            "bounds": {
+                "x": 0,
+                "y": 0,
+                "width": 1250,
+                "height": 800
+            },
+            "action": {
+                "type": "postback",
+                "data": "add"
+            }
+        },
+        {
+            "bounds": {
+                "x": 1250,
+                "y": 0,
+                "width": 1250,
+                "height": 800
+            },
+            "action": {
+                "type": "postback",
+                "data": "list"
+            }
+        },
+        {
+            "bounds": {
+                "x": 0,
+                "y": 800,
+                "width": 1250,
+                "height": 800
+            },
+            "action": {
+                "type": "postback",
+                "data": "delete"
+            }
+        },
+        {
+            "bounds": {
+                "x": 1250,
+                "y": 800,
+                "width": 1250,
+                "height": 800
+            },
+            "action": {
+                "type": "postback",
+                "data": "manage"
+            }
+        }
+    ]
+}
